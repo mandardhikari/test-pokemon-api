@@ -18,6 +18,7 @@ jobs:
     - name: Install newman
       run: |
        npm install -g newman
+       npm install -g html-extra
 
     - name: Make Directory for results
       run: mkdir -p testResults
