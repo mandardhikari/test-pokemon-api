@@ -6,6 +6,7 @@
 			"key": "url",
 			"value": "https://pokeapi.co/api",
 			"enabled": true
+			
 		}
 	],
 	"_postman_variable_scope": "environment",
