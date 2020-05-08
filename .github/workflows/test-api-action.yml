@@ -26,11 +26,11 @@ jobs:
       
     - name: Run POSTMAN collection
       run: |
-        $(newman run ./tests/pokemon-api-collection.json -e ./tests/pokemonapi-env.json --reporters cli,json --reporter-json-export output.json) > testResults/runreport.json
+        newman run ./tests/pokemon-api-collection.json -e ./tests/pokemonapi-env.json --reporters cli,json --reporter-json-export output.json > testResults/runreport.json
     
     - name: Run once more
       run: |
-       echo "::set-env name=postmanrunreport:: $(newman run ./tests/pokemon-api-collection.json -e ./tests/pokemonapi-env.json --reporters cli,json)"
+       echo "::set-env name=postmanrunreport:: $(newman run ./tests/pokemon-api-collection.json -e ./tests/pokemonapi-env.json -r html-extra)"
        echo priniting the output now
        echo ${{env.postmanrunreport}}
 
