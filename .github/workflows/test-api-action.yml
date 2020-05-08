@@ -22,21 +22,17 @@ jobs:
 
     - name: Make Directory for results
       run: mkdir -p testResults
-    
-    - name: Run collection
-      run: |
-       newman run ./tests/pokemon-api-collection.json -e ./tests/pokemonapi-env.json --reporters cli,json --reporter-json-export output.json > testResults/runreport.json
 
     - name: Run POSTMAN collection
       run: |
        newman run ./tests/pokemon-api-collection.json -e ./tests/pokemonapi-env.json -r htmlextra --reporter-htmlextra-export testResults/htmlreport.html --reporter-htmlextra-darkTheme  > testResults/runreport1.html
 
     - name: Echo report value
-      run: echo `cat testResults/runreport.json`
+      run: echo `cat testResults/htmlreport.html`
     
     - name: Output the run Details
       uses: actions/upload-artifact@v2
       with: 
        name: RunReports
        path: testResults
-
+    
