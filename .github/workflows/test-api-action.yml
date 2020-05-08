@@ -29,7 +29,7 @@ jobs:
 
     - name: Run POSTMAN collection
       run: |
-       newman run ./tests/pokemon-api-collection.json -e ./tests/pokemonapi-env.json -r htmlextra --reporter-htmlextra-export htmlreport.html --reporter-htmlextra-darkTheme  > testResults/runreport1.json
+       newman run ./tests/pokemon-api-collection.json -e ./tests/pokemonapi-env.json -r htmlextra --reporter-htmlextra-export testResults/htmlreport.html --reporter-htmlextra-darkTheme  > testResults/runreport1.html
 
     - name: Echo report value
       run: echo `cat testResults/runreport.json`
