@@ -23,7 +23,7 @@ jobs:
       
     - name: Run POSTMAN collection
       run: |
-        echo "::set-env name=runOutput:: $(newman run ./src/tests/pokemon-api-collection.json -e ./tests/pokemonapi-env.json --reporters cli,json --reporter-json-export output.json)
+        echo "::set-env name=runOutput:: $(newman run ./src/tests/pokemon-api-collection.json -e ./tests/pokemonapi-env.json --reporters cli,json --reporter-json-export output.json)"
         
 
     # Runs a set of commands using the runners shell
