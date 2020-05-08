@@ -31,6 +31,7 @@ jobs:
     - name: Run once more
       run: |
        echo "::set-env name=postmanrunreport:: $(newman run ./tests/pokemon-api-collection.json -e ./tests/pokemonapi-env.json --reporters cli,json)"
+       echo priniting the output now
        echo ${{env.postmanrunreport}}
 
 
@@ -43,5 +44,7 @@ jobs:
     # Runs a set of commands using the runners shell
     - name: Echo Response
       run: |
-        echo "::set-env name=postmanrunreport::`cat testResults/runreport`"
+        echo "::set-env name=postmanrunreport1::`cat testResults/runreport.json`"
         
+    - name: Echo some more
+      run: echo This is response ${{env.postmanrunreport1}}
