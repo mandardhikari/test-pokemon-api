@@ -16,18 +16,32 @@ jobs:
         node-version: '12.x'
         
     - name: Install newman
-      run: npm install -g newman
+      run: |
+       npm install -g newman
+       npm install -g newman-reporter-html
+       npm install -g newman-reporter-htmlextra
     
     - name: Make Directory for results
       run: mkdir -p testResults
       
     - name: Run POSTMAN collection
       run: |
-        echo "::set-env name=runOutput:: $(newman run ./tests/pokemon-api-collection.json -e ./tests/pokemonapi-env.json --reporters cli,json --reporter-json-export output.json)"
-        
+        $(newman run ./tests/pokemon-api-collection.json -e ./tests/pokemonapi-env.json --reporters cli,json --reporter-json-export output.json) > testResults/runreport.json
+    
+    - name: Run once more
+      run: |
+       echo "::set-env name=postmanrunreport:: $(newman run ./tests/pokemon-api-collection.json -e ./tests/pokemonapi-env.json --reporters cli,json)"
+       echo ${{env.postmanrunreport}}
+
+
+    - name: Output the run Details
+      uses: actions/upload-artifact@v2
+      with: 
+       name: RunReport
+       path: testResults/runreport.json
 
     # Runs a set of commands using the runners shell
     - name: Echo Response
       run: |
-        echo ${{env.runOutput}},
+        echo "::set-env name=postmanrunreport::`cat testResults/runreport`"
         
