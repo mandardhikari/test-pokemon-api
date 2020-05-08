@@ -18,7 +18,7 @@ jobs:
     - name: Install newman
       run: |
        npm install -g newman
-       npm install -g html-extra
+       npm install -g newman-reporter-htmlextra
 
     - name: Make Directory for results
       run: mkdir -p testResults
@@ -29,12 +29,10 @@ jobs:
 
     - name: Run POSTMAN collection
       run: |
-       echo "::set-env name=postmanrunreport:: $(newman run ./tests/pokemon-api-collection.json -e ./tests/pokemonapi-env.json --reporters cli,json --reporter-json-export output.json)"
-       echo priniting the output now
-       echo ${{env.postmanrunreport}}
-
+       newman run ./tests/pokemon-api-collection.json -e ./tests/pokemonapi-env.json --reporters cli,json -r htmlextra
+       
     - name: Echo report value
-      run: echo ${{env.postmanrunreport}}
+      run: echo `cat testResults/runreport.json`
     
     - name: Output the run Details
       uses: actions/upload-artifact@v2
