@@ -31,6 +31,9 @@ jobs:
        echo "::set-env name=postmanrunreport:: newman run ./tests/pokemon-api-collection.json -e ./tests/pokemonapi-env.json --reporters cli,json"
        echo priniting the output now
        echo ${{env.postmanrunreport}}
+
+    - name: Echo report value
+      run: echo ${{env.postmanrunreport}}
     
     - name: Output the run Details
       uses: actions/upload-artifact@v2
