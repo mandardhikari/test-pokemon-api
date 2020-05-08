@@ -23,17 +23,15 @@ jobs:
     
     - name: Make Directory for results
       run: mkdir -p testResults
-      
+    
     - name: Run POSTMAN collection
       run: |
-        newman run ./tests/pokemon-api-collection.json -e ./tests/pokemonapi-env.json --reporters cli,json --reporter-json-export output.json > testResults/runreport.json
-    
-    - name: Run once more
-      run: |
-       echo "::set-env name=postmanrunreport:: $(newman run ./tests/pokemon-api-collection.json -e ./tests/pokemonapi-env.json -r html-extra)"
+       echo "::set-env name=postmanrunreport:: $(newman run ./tests/pokemon-api-collection.json -e ./tests/pokemonapi-env.json --reporters cli,json)"
        echo priniting the output now
        echo ${{env.postmanrunreport}}
-
+    
+    - name: Set up Output File
+      run : ${{env.postmanrunreport}} > testResults/runreport.json
 
     - name: Output the run Details
       uses: actions/upload-artifact@v2
@@ -41,10 +39,3 @@ jobs:
        name: RunReport
        path: testResults/runreport.json
 
-    # Runs a set of commands using the runners shell
-    - name: Echo Response
-      run: |
-        echo "::set-env name=postmanrunreport1::`cat testResults/runreport.json`"
-        
-    - name: Echo some more
-      run: echo This is response ${{env.postmanrunreport1}}
