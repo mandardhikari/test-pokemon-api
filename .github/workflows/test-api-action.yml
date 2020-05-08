@@ -29,14 +29,14 @@ jobs:
 
     - name: Run POSTMAN collection
       run: |
-       newman run ./tests/pokemon-api-collection.json -e ./tests/pokemonapi-env.json --reporters cli,json -r htmlextra
-       
+       newman run ./tests/pokemon-api-collection.json -e ./tests/pokemonapi-env.json -r htmlextra --reporter-htmlextra-export htmlreport.html --reporter-htmlextra-darkTheme  > testResults/runreport1.json
+
     - name: Echo report value
       run: echo `cat testResults/runreport.json`
     
     - name: Output the run Details
       uses: actions/upload-artifact@v2
       with: 
-       name: RunReport
-       path: testResults/runreport.json
+       name: RunReports
+       path: testResults
 
